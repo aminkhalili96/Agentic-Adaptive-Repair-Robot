@@ -10,7 +10,15 @@ Handles:
 Per Codex feedback: includes workspace bounds checking.
 """
 
-import pybullet as p
+try:
+    import pybullet as p
+except ImportError:
+    class MockPyBullet:
+        POSITION_CONTROL = 1
+        def calculateInverseKinematics(self, *args, **kwargs): return [0]*7
+        def setJointMotorControl2(self, *args, **kwargs): pass
+        def getClosestPoints(self, *args, **kwargs): return []
+    p = MockPyBullet()
 import numpy as np
 import time
 from typing import List, Tuple, Optional, Dict

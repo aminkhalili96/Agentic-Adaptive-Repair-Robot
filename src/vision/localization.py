@@ -10,7 +10,12 @@ Includes:
 Per Codex feedback: includes normal smoothing for jitter reduction.
 """
 
-import pybullet as p
+try:
+    import pybullet as p
+except ImportError:
+    class MockPyBullet:
+        def rayTest(self, rayFromPosition, rayToPosition): return []
+    p = MockPyBullet()
 import numpy as np
 from typing import Tuple, List, Dict, Optional
 from dataclasses import dataclass

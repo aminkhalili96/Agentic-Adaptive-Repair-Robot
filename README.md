@@ -54,9 +54,12 @@ AARR demonstrates a complete **Scan-to-Path** automation workflow for MRO (Maint
 | **Interactive 3D Viewer** | Plotly-based mesh visualization with zoom/rotate |
 | **Premium Industrial Meshes** | Turbine blade, gear, pipe assembly, gripper, bracket |
 | **Multi-Agent Chat** | 🤖 Supervisor, 👁️ Inspector, 🔧 Engineer team |
+| **Voice Control** | 🎤 Push-to-speak commands via OpenAI Whisper |
+| **Interactive Segmentation** | ✂️ Zero-shot defect masking using SAM (Segment Anything) |
 | **Real Computer Vision** | HSV detection with morphological cleanup |
 | **Surface Normal Alignment** | Tool perpendicular to curved surfaces |
 | **LLM Agent** | LangGraph + Qwen3/GPT-4 for repair planning |
+| **ML Predictor** | RandomForest model predicts repair time from defect data |
 | **Human-in-the-Loop** | Mandatory approval before execution |
 | **Multi-Defect TSP** | Optimized visit order (NN + 2-opt) |
 | **Demo Mode** | Procedural meshes with vertex-colored defects |
@@ -73,16 +76,17 @@ AARR demonstrates a complete **Scan-to-Path** automation workflow for MRO (Maint
 
 ### Installation
 
-```bash
 # Clone the repository
 git clone https://github.com/yourusername/robotic_ai.git
 cd robotic_ai
 
-# Install PyBullet via conda (handles C++ compilation)
-conda install -c conda-forge pybullet
-
 # Install Python dependencies
 pip install -r requirements.txt
+
+# Note for Mac M1/M2 Users:
+# If pybullet fails to install via pip (clang error), you can:
+# 1. Try conda: conda install -c conda-forge pybullet
+# 2. Or continue without it - the app will automatically run in "Simulation Mock Mode" (features limited to UI & Agent).
 
 # Install Ollama and pull model
 brew install ollama
@@ -103,9 +107,10 @@ This opens:
 
 1. Select **Premium Parts** → Turbine Blade (or other mesh)
 2. View 3D model with defect markers
-3. Chat: "Show me high severity defects" → Inspector highlights
-4. Chat: "Plan the repair" → Engineer gives strategy
-5. Click **Generate Plan** → **Approve** → **Execute**
+3. 🎤 **Voice**: Click mic, say "Inspect the top corner" → Agent responds
+4. Or type: "Show me high severity defects" → Inspector highlights
+5. Chat: "Plan the repair" → Engineer gives strategy
+6. Click **Generate Plan** → **Approve** → **Execute**
 
 ---
 
@@ -121,7 +126,8 @@ robotic_ai/
 │   ├── visualization/       # Plotly 3D, premium meshes, demo parts
 │   ├── planning/            # Paths, TSP optimization
 │   ├── control/             # Robot controller, IK
-│   └── agent/               # LangGraph workflow, multi-agent chat
+│   ├── agent/               # LangGraph workflow, multi-agent chat
+│   └── ml/                  # ML predictor for repair time estimation
 ├── docs/
 │   ├── ARCHITECTURE.md      # System design
 │   ├── MATH.md              # Coordinate transforms
@@ -142,6 +148,8 @@ robotic_ai/
 | [PROMPTS.md](docs/PROMPTS.md) | LLM prompting strategy |
 | [SAFETY.md](docs/SAFETY.md) | Safety layers, human-in-the-loop |
 | [SIM_TO_REAL.md](docs/SIM_TO_REAL.md) | Real-world deployment |
+| [ML_PREDICTOR.md](docs/ML_PREDICTOR.md) | ML model architecture, API reference |
+| [VOICE_CONTROL.md](docs/VOICE_CONTROL.md) | Voice input, Whisper API integration |
 
 ---
 
@@ -188,6 +196,7 @@ safety:
 - [ ] Real robot integration (KUKA RSI)
 - [ ] Force-feedback during execution
 - [ ] Multi-robot coordination
+- [x] ML predictor for repair time estimation
 
 ---
 

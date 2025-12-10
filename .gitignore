@@ -34,3 +34,10 @@ docs/INTERVIEW.md
 CLAUDE.md
 GEMINI.md
 *.personal.md
+
+# Agent Artifacts
+task.md
+implementation_plan.md
+walkthrough.md
+review_report.md
+.gemini/

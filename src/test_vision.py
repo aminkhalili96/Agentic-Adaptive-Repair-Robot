@@ -14,7 +14,12 @@ from src.vision.detector import DefectDetector
 from src.vision.localization import Localizer
 
 
-import pybullet as p
+try:
+    import pybullet as p
+except ImportError:
+    class MockP:
+        error = Exception
+    p = MockP()
 
 def test_vision():
     """Test the complete vision pipeline."""

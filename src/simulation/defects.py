@@ -7,7 +7,17 @@ Creates visual markers for different defect types:
 - Dent: Blue concave markers
 """
 
-import pybullet as p
+try:
+    import pybullet as p
+except ImportError:
+    class MockPyBullet:
+        GEOM_BOX = 1
+        GEOM_SPHERE = 2
+        def createVisualShape(self, *args, **kwargs): return 0
+        def createMultiBody(self, *args, **kwargs): return 0
+        def changeVisualShape(self, *args, **kwargs): pass
+        def removeBody(self, *args): pass
+    p = MockPyBullet()
 import numpy as np
 from typing import List, Dict, Tuple, Optional
 from dataclasses import dataclass

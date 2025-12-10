@@ -8,8 +8,54 @@ This module sets up the 3D simulation world including:
 - Overhead camera
 """
 
-import pybullet as p
-import pybullet_data
+try:
+    import pybullet as p
+    import pybullet_data
+    HAS_PYBULLET = True
+except ImportError:
+    HAS_PYBULLET = False
+    class MockPyBullet:
+        GUI = 1
+        DIRECT = 2
+        COV_ENABLE_GUI = 0
+        COV_ENABLE_SHADOWS = 0
+        GEOM_BOX = 1
+        GEOM_CYLINDER = 2
+        ER_BULLET_HARDWARE_OPENGL = 1
+        ER_TINY_RENDERER = 2
+        
+        def connect(self, mode): return 0
+        def disconnect(self): pass
+        def configureDebugVisualizer(self, flag, enable): pass
+        def setAdditionalSearchPath(self, path): pass
+        def setGravity(self, x, y, z): pass
+        def setTimeStep(self, timestep): pass
+        def loadURDF(self, fileName, basePosition=[0,0,0], baseOrientation=[0,0,0,1], useFixedBase=False): return 0
+        def getNumJoints(self, bodyUniqueId): return 7
+        def resetJointState(self, bodyUniqueId, jointIndex, targetValue): pass
+        def createVisualShape(self, shapeType, halfExtents=None, radius=None, length=None, rgbaColor=None): return 0
+        def createCollisionShape(self, shapeType, halfExtents=None, radius=None, height=None): return 0
+        def createMultiBody(self, baseMass=0, baseCollisionShapeIndex=0, baseVisualShapeIndex=0, basePosition=[0,0,0]): return 0
+        def computeViewMatrix(self, cameraEyePosition, cameraTargetPosition, cameraUpVector): return []
+        def computeProjectionMatrixFOV(self, fov, aspect, nearVal, farVal): return []
+        def getCameraImage(self, width, height, viewMatrix, projectionMatrix, renderer):
+            # Return dummy data: width, height, rgb, depth, seg
+            rgb = np.zeros((height, width, 4), dtype=np.uint8)
+            depth = np.zeros((height, width), dtype=np.float32)
+            seg = np.zeros((height, width), dtype=np.int32)
+            return width, height, rgb.flatten(), depth.flatten(), seg.flatten()
+        def getJointState(self, bodyUniqueId, jointIndex): return [0, 0, 0, 0]
+        def getLinkState(self, bodyUniqueId, linkIndex): return [[0.5, 0, 0.5], [0, 0, 0, 1]]
+        def stepSimulation(self): pass
+        def removeBody(self, bodyUniqueId): pass
+        def getQuaternionFromEuler(self, eulerAngles): return [0, 0, 0, 1]
+
+    p = MockPyBullet()
+    
+    class MockData:
+        def getDataPath(self): return ""
+    pybullet_data = MockData()
+
 import numpy as np
 from typing import Tuple, Optional, Dict, Any
 

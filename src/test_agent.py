@@ -8,7 +8,7 @@ from src.agent.graph import RepairAgent, create_agent
 from src.agent.tools import DefectInfo
 
 
-async def test_agent():
+async def _test_agent_impl():
     """Test the repair agent with sample defects."""
     print("=" * 60)
     print("LangGraph Agent Test")
@@ -65,5 +65,9 @@ async def test_agent():
     print("=" * 60)
 
 
+def test_agent():
+    asyncio.run(_test_agent_impl())
+
+
 if __name__ == "__main__":
-    asyncio.run(test_agent())
+    test_agent()

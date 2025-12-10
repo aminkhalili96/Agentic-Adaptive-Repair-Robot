@@ -45,7 +45,7 @@ High-level architecture of the Agentic Adaptive Repair Robot (AARR) system.
 │                                                                               │
 │  ┌──────────────────────┐  ┌────────────────────────────────────────────────┐│
 │  │   Ollama (Qwen3)     │  │              OpenAI API (GPT-4o)               ││
-│  │   Local LLM          │  │              Production LLM                    ││
+│  │   Local LLM          │  │              + GPT-4o Vision (multimodal)      ││
 │  └──────────────────────┘  └────────────────────────────────────────────────┘│
 │                                                                               │
 └───────────────────────────────────────────────────────────────────────────────┘
@@ -95,6 +95,42 @@ High-level architecture of the Agentic Adaptive Repair Robot (AARR) system.
 | `prompts.py` | System prompts and templates |
 | `tools.py` | DefectInfo, RepairPlan, fallbacks |
 | `graph.py` | LangGraph workflow, LLM calls |
+| `supervisor_agent.py` | GPT-4o conversational agent with function calling |
+| `knowledge_base.py` | RAG system: SOP documents + vector search |
+
+#### RAG Knowledge Base
+
+The `knowledge_base.py` provides retrieval-augmented generation for repair parameters:
+
+- **SOP Documents**: Industrial rules for materials (Aluminum, Steel, Composite) and defects (Rust, Crack, Dent)
+- **Vector Search**: Numpy-based cosine similarity for lightweight retrieval
+- **Tool**: `consult_manual(query)` - Called by Supervisor Agent to cite verified specifications
+
+Example flow:
+```
+User: "How do we fix Steel?"
+  → Agent calls consult_manual("Steel repair")
+  → Returns: "Material: Steel | Tool: Grinder | Speed: 3000 RPM | Pressure: High"
+  → Agent: "According to the SOP, for Steel, I am setting the robot to 3000 RPM."
+```
+
+#### Visual Inspection Feature
+
+The `supervisor_agent.py` includes multimodal (vision) capability:
+
+- **Trigger phrases**: "Look at this", "What do you see?", "Analyze the screen"
+- **Process**: Captures 3D viewer → sends to GPT-4o Vision → returns defect description
+- **Tool**: `analyze_visual` triggers `CAPTURE_SNAPSHOT` UI command
+- **Image capture**: Uses Kaleido for server-side PNG generation
+
+#### Voice Control Feature
+
+The `streamlit_app.py` includes voice-to-text capability for glove-wearing operators:
+
+- **Widget**: `st.audio_input("🎤 Push to Speak Command")` native Streamlit widget
+- **Processing**: Audio sent to OpenAI Whisper API (`whisper-1`) for transcription
+- **Auto-submit**: Transcribed text auto-injected into chat and sent to Supervisor Agent
+- **Use case**: Operators say "Inspect the top corner" and the AI Agent responds immediately
 
 ### Planning (`src/planning/`)
 
@@ -167,4 +203,5 @@ langchain       - LLM framework
 langgraph       - Agent workflow
 langchain-ollama- Ollama integration
 streamlit       - Web dashboard
+kaleido         - Plotly image export (for visual inspection)
 ```

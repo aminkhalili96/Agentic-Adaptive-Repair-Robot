@@ -17,7 +17,12 @@ from src.planning.tsp import optimize_defect_order
 from src.control.controller import RobotController
 
 
-import pybullet as p
+try:
+    import pybullet as p
+except ImportError:
+    class MockP:
+        error = Exception
+    p = MockP()
 
 def test_full_pipeline():
     """Test the complete scan-to-path pipeline."""
