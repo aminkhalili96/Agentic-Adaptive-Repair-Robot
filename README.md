@@ -1,6 +1,6 @@
 # Agentic Adaptive Repair Robot (AARR)
 
-> 🤖 LLM-powered robotic system for autonomous surface defect detection and repair
+> LLM-powered robotic system for autonomous surface defect detection and repair
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![PyBullet](https://img.shields.io/badge/Simulation-PyBullet-green)
@@ -9,7 +9,7 @@
 
 ---
 
-## 🎯 Overview
+## Overview
 
 AARR demonstrates a complete **Scan-to-Path** automation workflow for MRO (Maintenance, Repair, and Overhaul) operations:
 
@@ -22,7 +22,7 @@ AARR demonstrates a complete **Scan-to-Path** automation workflow for MRO (Maint
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌────────────────────────────────────────────────────────────┐
@@ -47,17 +47,17 @@ AARR demonstrates a complete **Scan-to-Path** automation workflow for MRO (Maint
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 | Feature | Description |
 |---------|-------------|
 | **Interactive 3D Viewer** | Plotly-based mesh visualization with zoom/rotate |
 | **Premium Industrial Meshes** | Turbine blade, gear, pipe assembly, gripper, bracket |
-| **Multi-Agent Chat** | 🤖 Supervisor, 👁️ Inspector, 🔧 Engineer team |
-| **Voice Control** | 🎤 Push-to-speak commands via OpenAI Whisper |
-| **Interactive Segmentation** | ✂️ Zero-shot defect masking using SAM (Segment Anything) |
-| **3D Depth Analysis** | 📊 RGBD point cloud + curvature-based geometric defect detection |
-| **Texture-to-3D Mapping** | 🎨 UV-based defect projection from textures to 3D vertices |
+| **Multi-Agent Chat** | Supervisor, Inspector, Engineer team |
+| **Voice Control** | Push-to-speak commands via OpenAI Whisper |
+| **Interactive Segmentation** | Zero-shot defect masking using SAM (Segment Anything) |
+| **3D Depth Analysis** | RGBD point cloud + curvature-based geometric defect detection |
+| **Texture-to-3D Mapping** | UV-based defect projection from textures to 3D vertices |
 | **Real Computer Vision** | HSV detection with morphological cleanup |
 | **Surface Normal Alignment** | Tool perpendicular to curved surfaces |
 | **LLM Agent** | LangGraph + Qwen3/GPT-4 for repair planning |
@@ -65,11 +65,11 @@ AARR demonstrates a complete **Scan-to-Path** automation workflow for MRO (Maint
 | **Human-in-the-Loop** | Mandatory approval before execution |
 | **Multi-Defect TSP** | Optimized visit order (NN + 2-opt) |
 | **Demo Mode** | Procedural meshes with vertex-colored defects |
-| **Multimodal Diagnosis** | 🔬 GPT-4o Vision returns structured defect classifications |
-| **Quality Reports** | 📋 LLM-generated audit-ready documentation |
-| **Memory Bank** | 🧠 Vector store recalls similar past repairs |
-| **What-If Simulation** | 🔮 Compare hypothetical scenarios |
-| **Safety Reviewer** | 🛡️ Second LLM pass validates plans before execution |
+| **Multimodal Diagnosis** | GPT-4o Vision returns structured defect classifications |
+| **Quality Reports** | LLM-generated audit-ready documentation |
+| **Memory Bank** | Vector store recalls similar past repairs |
+| **What-If Simulation** | Compare hypothetical scenarios |
+| **Safety Reviewer** | Second LLM pass validates plans before execution |
 
 ---
 
@@ -121,7 +121,7 @@ This opens:
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 robotic_ai/
@@ -146,7 +146,7 @@ robotic_ai/
 
 ---
 
-## 📊 Documentation
+## Documentation
 
 | Document | Contents |
 |----------|----------|
@@ -165,7 +165,7 @@ robotic_ai/
 
 ---
 
-## 🔧 Configuration
+## Configuration
 
 Edit `config.yaml` to customize:
 
@@ -184,7 +184,7 @@ safety:
 
 ---
 
-## 🎥 Demo
+## Demo
 
 > The robot detects a rust defect, plans a spiral sanding path, and executes with tool perpendicular to the surface.
 
@@ -192,7 +192,7 @@ safety:
 
 ---
 
-## 🛡️ Safety
+## Safety
 
 - **Workspace bounds** — All positions validated
 - **Collision detection** — Checked every N waypoints
@@ -201,7 +201,7 @@ safety:
 
 ---
 
-## 📈 Future Roadmap
+## Future Roadmap
 
 - [ ] Point cloud input from RealSense
 - [ ] Fine-tuned defect classification model
@@ -213,7 +213,7 @@ safety:
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [PyBullet](https://pybullet.org/) — Physics simulation
 - [LangGraph](https://github.com/langchain-ai/langgraph) — Agent framework
@@ -222,6 +222,6 @@ safety:
 
 ---
 
-## 📄 License
+## License
 
 MIT License — See [LICENSE](LICENSE) for details.
